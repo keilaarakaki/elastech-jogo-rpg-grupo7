@@ -1,4 +1,4 @@
-CodeCaos
+## <span style="color:orange">CodeCaos
 
 ## <span style="color:orange">A Jornada ElasTech pelo Reino de Java</span>
 
