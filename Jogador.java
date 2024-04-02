@@ -1,32 +1,41 @@
 package JogoRPG;
 
-import org.w3c.dom.ls.LSOutput;
-
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class Jogador {
+    Scanner entrada = new Scanner(System.in);
+
     private String nome;
-    private int flag_tipo_jogador; //1-Guerreiro 2-Mago 3-Inimigo
+    private int nivel;
     private int porcentagem_vida;
-    private int poder_ataque;
+   // private int poder_ataque; // implementar
+    //private int poderDefesa; // valor do ataque - poder defesa e desc da % vida - implementar
     private String avatar;
 
-    // Array de armas
-    String[] armaGuerreira = {"🗡️", "🏹", "🔨", "⚔️"};
-    String[] armaMaga = {"🧪", "💊", "🍷", "🌿"};
-    String[] armaInimiga = {"🗡️", "🏹", "🔨", "⚔️", "🧪", "💊", "🍷", "🌿"}; // pode usar qualquer arma do jogo - tanto de Guerreiro quanto de Mago
+    // Array de emojis pra Vencedor
+    String [] emojiVencedor = {"🏆","👑","🎈","🥇","🎉","🥳"};
 
-    // Array de avatares
-    String[] avatarGuerreira = {"🦸‍","👩‍🚀","👩‍🎤","👩"};
-    String[] avatarMaga = {"🧙‍♀️","🧝‍♀️","👩‍🔬","🧚‍♀️"};
-    String[] avatarInimiga = {"👹","👿","🐉","🧟‍♀️","🕷️"};
+    // Array de emojis pra Perdedor
+    String [] emojiPerdedor = {"💀","☠️","💔","⚰️","😢","😭","😔"};
     Random random = new Random();
-    public Jogador(){ // o nome e flag_tipo_jogador serão setados conforme opção digitada pelo usuário, não serão iniciados no construtor
+
+    //aqui teremos sobrecarga de construtores, dependendo dos parâmetros, o Java definirá qual será chamado
+    public Jogador(String nome){// nome jogador é digitado pelo usuário - esse construtor é usado p/ criar Guerreira e Maga
+        this.nome = nome;
+        this.nivel = 0; // sempre inicia o jogo com nível 0 - nível é o número de vitórias
         this.porcentagem_vida = 100; // sempre inicia o jogo com 100% de vida
-        this.poder_ataque = 0; // será randômico NEM PRECISA TER COMO ATRIBUTO, CADA ATAQUE TEM UM PODER
+        //this.poder_ataque = 0; // será randômico NEM PRECISA TER COMO ATRIBUTO, CADA ATAQUE TEM UM PODER
     }
 
+    public Jogador(){ // contrutor usado para criar inimigo - o nome do inimigo é gerado randomicamente após a classe inimigo ser instanciada
+        this.nivel = 0; // sempre inicia o jogo com nível 0
+        this.porcentagem_vida = 100; // sempre inicia o jogo com 100% de vida
+        //this.poder_ataque = 0; // será randômico NEM PRECISA TER COMO ATRIBUTO, CADA ATAQUE TEM UM PODER
+    }
     public String getNome() {
         return nome;
     }
@@ -35,12 +44,12 @@ public class Jogador {
         this.nome = nome;
     }
 
-    public int getFlag_tipo_jogador() {
-        return flag_tipo_jogador;
+    public int getNivel() {
+        return nivel;
     }
 
-    public void setFlag_tipo_jogador(int flag_tipo_jogador) {
-        this.flag_tipo_jogador = flag_tipo_jogador;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public int getPorcentagem_vida() {
@@ -49,14 +58,6 @@ public class Jogador {
 
     public void setPorcentagem_vida(int porcentagem_vida) {
         this.porcentagem_vida = porcentagem_vida;
-    }
-
-    public int getPoder_ataque() {
-        return poder_ataque;
-    }
-
-    public void setPoder_ataque(int poder_ataque) {
-        this.poder_ataque = poder_ataque;
     }
 
     public String getAvatar() {
@@ -68,32 +69,70 @@ public class Jogador {
     }
 
     public int poderAtaque(){
-        return (random.nextInt(11));
+        return (random.nextInt(21) + 10); // varia de 10 a 30
     }
-    public String avatar(){
-        if (flag_tipo_jogador == 1) {
-            return("\uD83E\uDDB8\u200D♀\uFE0F"); // GUERREIRA
-        }else {
-            return("\uD83E\uDDD9\u200D♂\uFE0F"); // Mago
+
+
+    public String emojiFimDeJogo(int resultado){
+        if (resultado == 1){ // Venceu o jogo
+            return(emojiVencedor[random.nextInt(emojiVencedor.length)]);
+        }else{ // perdeu o jogo
+            return(emojiPerdedor[random.nextInt(emojiPerdedor.length)]);
         }
     }
 
-    public String avatarInimiga() {
-        return (avatarInimiga[random.nextInt(avatarInimiga.length)]);
+
+    public void aumentarNivel() {// método para incrementar o nível - que aqui será o número de vitórias
+        this.nivel++;
     }
 
-    public String avatarGuerreira(){
-        return (avatarGuerreira[random.nextInt(avatarGuerreira.length)]);
-    }
-
-    public String avatarMaga(){
-        return (avatarMaga[random.nextInt(avatarMaga.length)]);
-    }
-    public String ataque(){
-        if (flag_tipo_jogador == 1){
-            return (armaGuerreira[random.nextInt(armaGuerreira.length)]);
-        }else{
-            return (armaMaga[random.nextInt(armaMaga.length)]);
+    public void mostrarArsenal(String[] arsenal, String mensagem) { //arsenal e mensagem personalizada p/ cd tipo de
+        System.out.print(mensagem);                                //jogador: guerreira, maga e inimigo
+        for (String item : arsenal) {
+            System.out.print(item + " ");
         }
     }
+
+    public String avatar(String[] lstAvatar){ //retorna o avatar escolhido pra personagem
+        int escolha, i;
+        do{
+            System.out.println("\nAvatares disponíveis: ");
+            i = 1;
+            for (String avatar : lstAvatar){
+                System.out.println(i + "- " + avatar);
+                i++;
+            }
+            System.out.println("Escolha seu avatar entre 1 e " + lstAvatar.length + ": ");
+            while (!entrada.hasNextInt()) { //ROTINA USADA CASO O USUÁRIO DIGITE ALGO DIFERENTE DE UM NÚMERO
+                System.out.println("Opção inválida! Digite um número correspondente à opção desejada.");
+                System.out.print("Escolha uma opção: ");
+                entrada.next(); // Limpar o buffer do scanner pra não ficar em loop
+            }
+            escolha = entrada.nextInt();
+            if (escolha > 0 && escolha <= lstAvatar.length){
+                System.out.println("O avatar escolhido foi: " + lstAvatar[escolha-1]);
+                setAvatar(lstAvatar[escolha-1]);
+            } else {
+                // Caso contrário, informar ao usuário que o número é inválido
+                System.out.println("Número inválido. O número deve estar entre 1 e " + lstAvatar.length + ".");
+            }
+        }while(escolha < 1 || escolha > lstAvatar.length);
+        return lstAvatar[escolha-1]; // ou poderia retornar o índice da lista
+    }
+    public  void exibirRanking(List<Jogador> jogadores) { // ainda não implementado
+        // o método comparator irá ordenar os jogadores pelo atributo nível em ordem decrescente
+        jogadores.sort(Comparator.comparingInt(Jogador::getNivel).reversed());
+
+        System.out.println("Ranking:");
+        int posicao = 1;
+        for (Jogador jogador : jogadores) {
+            System.out.println(posicao + ". " + jogador.getNome() + " - Nível: " + jogador.getNivel());
+            posicao++;
+        }
+    }
+
+    public String armaAtaque(String[] arsenal){
+        return(arsenal[random.nextInt(arsenal.length)]);
+    }
+
 }
