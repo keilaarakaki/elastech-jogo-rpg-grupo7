@@ -18,7 +18,12 @@ O objetivo do jogo é derrotar os inimigos, em especial o Professor Mal, e aumen
 
 O jogo começa com a apresentação da história e do cenário. O jogador pode escolher um cenário para iniciar a partida. Cada cenário possui um nome e um cenário único.
 
-String[] cenario = {"🏰 1- Castelo do Caos Encantado", "🏞️ 2- Vale dos Bugs Bizarros", "🏕️ 3- Montanha da Mente Mística", "🏝️ 4- Ilha da Imaginação Inexplorada", "🏫 5- Academia ElasTech", "🌄 6- Floresta da Orientação a Objetos"};
+Cenários = 🏰 1- Castelo do Caos Encantado
+           🏞️ 2- Vale dos Bugs Bizarros
+           🏕️ 3- Montanha da Mente Mística
+           🏝️ 4- Ilha da Imaginação Inexplorada
+           🏫 5- Academia ElasTech
+           🌄 6- Floresta da Orientação a Objetos
 
 ### <span style="color:green">Personagens</span>
 
@@ -28,15 +33,16 @@ Cada personagem tem um nome, uma porcentagem de vida e um avatar.
 
 Guerreira :
 
-String[] arma = {"🗡️", "🏹", "🔨", "⚔️","🔱","🪓","⚒️","🛡️"};
+Arsenal = 🗡️, 🏹, 🔨, ⚔️, 🔱, 🪓, ⚒️, 🛡️
     
-String[] avatar = {"🦸‍","👩‍🚀","👩‍🎤","👩"};
+Avatar = 🦸‍", 👩‍🚀, 👩‍🎤, 👩
+
 
 Maga: 
 
-String[] arma = {"🧪", "💊", "🍷", "🌿", "✨", "🔥", "️💫"};
+Artefatos = 🧪, 💊, 🍷, 🌿, ✨, 🔥, 💫
 
-String[] avatar = {"🧙‍♀️", "🧝‍♀️", "👩‍🔬", "🧚‍♀️"};
+Avatar = 🧙‍♀️, 🧝‍♀️, 👩‍🔬, 🧚‍♀️
 
 
 
@@ -46,13 +52,11 @@ O jogador escolhe entre jogar como Guerreira ou Maga no início do jogo.
 
 Os inimigos são escolhidos aleatoriamente pelo sistema. Cada inimigo tem um nome, uma porcentagem de vida e um avatar.
 
- String [] nome = {"Rafael","Icoma","Java","Thanos"};
+ Nome = Rafael, Icoma, Java, Thanos
+  
+ Armamento = 🗡️, 🏹, 🔨, ⚔️, 🔱, 🪓, ⚒️, 🛡️, 🧪, 💊, 🍷, 🌿, ✨, 🔥, 💫
 
-    
-String[] arma = {"🗡️", "🏹", "🔨", "⚔️","🔱","🪓","⚒️","🛡️","🧪", "💊", "🍷", "🌿","✨", "🔥", "️💫"};
-
-    
-String[] avatar = {"👹","👿","🐉","🧟‍♀️","🦹‍♂️"};
+ Avatar = 👹, 👿, 🐉, 🧟‍♀️, 🦹‍♂️
 
 ### <span style="color:green">Batalhas</span>
 
